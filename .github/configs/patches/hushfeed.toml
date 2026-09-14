@@ -1,0 +1,14 @@
+patches-source = "SysAdminDoc/hushfeed"
+patches-version = "stable"
+build-mode = "both"
+brand = "Hushfeed"
+
+[TikTok-Hushfeed]
+enabled = true
+pkg-name = "com.zhiliaoapp.musically"
+app-name = "TikTok"
+arch = "arm64-v8a"
+apkmirror-dlurl = "https://www.apkmirror.com/apk/tiktok-pte-ltd/tik-tok/tik-tok-tiktok"
+uptodown-dlurl = "https://tiktok.en.uptodown.com/android"
+apkpure-dlurl = "https://apkpure.com/tiktok/com.zhiliaoapp.musically"
+apkcombo-dlurl = "https://apkcombo.com/tiktok/com.zhiliaoapp.musically"
