@@ -201,16 +201,6 @@ jobs:
             overwrite_files: true
             target_commitish: main
 
-      - name: Update Website Catalog
-        env:
-          WEBSITE_REPO_TOKEN: ${{ secrets.APKS_REPO_TOKEN }}
-          NEXT_VER_CODE: ${{ steps.version.outputs.NEXT_VER_CODE }}
-          GITHUB_SERVER_URL: ${{ github.server_url }}
-          GITHUB_REPOSITORY: ${{ github.repository }}
-          IS_PRERELEASE: ${{ steps.context.outputs.IS_PRERELEASE }}
-          ARCHIVE_UPLOAD_FAILED: ${{ steps.archive_upload.outcome == 'failure' && 'true' || 'false' }}
-        run: python3 .github/scripts/update_website_catalog.py
-
       - name: Notify telegram
         env:
           TG_TOKEN: ${{ secrets.TG_TOKEN }}
