@@ -338,5 +338,12 @@
       "com.facebook.katana": "c08748efec6831fb7ca717fce8b0ce31",
       "shared": "b729f99c591c50dec896494ebca13344"
     }
+  },
+  "sysadmindoc/hushfeed": {
+    "beta": {},
+    "stable": {
+      "com.zhiliaoapp.musically": "bbf681ab4f33a73383b74b4b90329d3f",
+      "shared": "50398e20e624e6451f1906ad31354f24"
+    }
   }
 }
