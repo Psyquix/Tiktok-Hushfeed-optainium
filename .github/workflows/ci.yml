@@ -110,6 +110,8 @@ jobs:
     uses: ./.github/workflows/build.yml
     with:
       config_file: ".github/configs/config.beta.updated.json"
+    permissions:
+      contents: write
     secrets: inherit
 
   build_stable:
@@ -118,6 +120,8 @@ jobs:
     uses: ./.github/workflows/build.yml
     with:
       config_file: ".github/configs/config.stable.updated.json"
+    permissions:
+      contents: write
     secrets: inherit
 
   trigger_cleanup:
