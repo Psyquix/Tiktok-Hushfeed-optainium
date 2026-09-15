@@ -252,12 +252,6 @@ def main():
                 lines.append(release_notes.strip())
                 lines.append("")
             break  # Only need notes from one patch source
-
-    # Footer
-    lines.append("---")
-    lines.append("")
-    lines.append(f"🌐 [GitHub](https://github.com/{github_repo}) | 💬 [Group](https://t.me/rvb27) | ☕ [Donate](https://fahim-ahmed05.github.io/donate)")
-    lines.append("")
     content = "\n".join(lines)
     with open("build.md", "w", encoding="utf-8") as f:
         f.write(content)
