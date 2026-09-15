@@ -3,7 +3,28 @@ import os
 import re
 import json
 import glob
+import urllib.request
 from pathlib import Path
+
+def fetch_release_notes(repo, tag, token=None):
+    """Fetch release notes from GitHub API for a given repo and tag."""
+    if not repo or not tag:
+        return ""
+    
+    url = f"https://api.github.com/repos/{repo}/releases/tags/{tag}"
+    headers = {"Accept": "application/vnd.github.v3+json"}
+    if token:
+        headers["Authorization"] = f"token {token}"
+    
+    req = urllib.request.Request(url, headers=headers)
+    try:
+        with urllib.request.urlopen(req, timeout=10) as resp:
+            data = json.loads(resp.read().decode())
+            return data.get("body", "") or ""
+    except Exception as e:
+        print(f"Warning: Could not fetch release notes from {repo} tag {tag}: {e}")
+        return ""
+
 
 def load_json(path, default=None):
     if os.path.exists(path):
@@ -215,14 +236,27 @@ def main():
 
             lines.append("")
 
-    # Notes section
+    # Fetch and append hushfeed release notes
+    gh_token = os.environ.get("GH_TOKEN") or os.environ.get("GITHUB_TOKEN")
+    for gkey in sorted_group_keys:
+        group = patch_groups[gkey]
+        tag = group.get("tag", "")
+        source = group.get("source", "")
+        if tag and source:
+            release_notes = fetch_release_notes(source, tag, gh_token)
+            if release_notes.strip():
+                lines.append("---")
+                lines.append("")
+                lines.append("### ℹ️ hushfeed-release-notes:")
+                lines.append("")
+                lines.append(release_notes.strip())
+                lines.append("")
+            break  # Only need notes from one patch source
+
+    # Footer
     lines.append("---")
     lines.append("")
-    lines.append("### ℹ️ Notes")
-    lines.append("• Install [MicroG-RE](https://github.com/MorpheApp/MicroG-RE/releases/latest) or [MicroG](https://github.com/ReVanced/GmsCore/releases/latest), required for Google APKs.  ")
-    lines.append("• Use [Zygisk Detach](https://github.com/j-hc/zygisk-detach) to stop Play Store from updating Modules.  ")
-    lines.append("")
-    lines.append("🌐 [GitHub](https://github.com/nullcpy/rvb) | 💬 [Group](https://t.me/rvb27) | ☕ [Donate](https://fahim-ahmed05.github.io/donate) | 🔗 [Website](https://nullcpy.github.io)")
+    lines.append(f"🌐 [GitHub](https://github.com/{github_repo}) | 💬 [Group](https://t.me/rvb27) | ☕ [Donate](https://fahim-ahmed05.github.io/donate)")
     lines.append("")
     content = "\n".join(lines)
     with open("build.md", "w", encoding="utf-8") as f:
