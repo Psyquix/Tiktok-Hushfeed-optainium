@@ -1,6 +1,6 @@
 patches-source = "SysAdminDoc/hushfeed"
 patches-version = "stable"
-build-mode = "both"
+build-mode = "apk"
 brand = "Hushfeed"
 
 [TikTok-Hushfeed]
