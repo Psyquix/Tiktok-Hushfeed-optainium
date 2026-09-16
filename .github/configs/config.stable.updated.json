@@ -2,7 +2,7 @@
   "patches-version": "stable",
   "TikTok-Hushfeed": {
     "patches-source": "SysAdminDoc/hushfeed",
-    "build-mode": "both",
+    "build-mode": "apk",
     "brand": "Hushfeed",
     "enabled": true,
     "pkg-name": "com.zhiliaoapp.musically",
